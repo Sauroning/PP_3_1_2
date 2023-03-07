@@ -3,27 +3,27 @@ package ru.kata.spring.boot_security.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
-public class MyController {
-
+public class AdminController {
     private UserService userService;
 
     @Autowired
-    public MyController(UserService userService) {
+    public AdminController(UserService userService) {
         this.userService = userService;
     }
 
-    //    @GetMapping("/users")
-    @GetMapping("/admin")
+    @GetMapping(value = "/")
+    public String welcome() {
+        return "redirect:/admin";
+    }
+
+    @GetMapping("admin")
     public String findAll(Model model) {
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
@@ -41,7 +41,7 @@ public class MyController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/user-delete/{id}")
+    @DeleteMapping("admin/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteById(id);
         return "redirect:/admin";
@@ -54,18 +54,10 @@ public class MyController {
         return "/user-update";
     }
 
-    @PostMapping("/user-update")
+    @PatchMapping("/user-update")
     public String updateUser(User user) {
         userService.saveUser(user);
         return "redirect:/admin";
     }
-
-    @GetMapping("/user")
-    public String getUserForm(Principal principal, Model model) {
-        User user = userService.findByUsername(principal.getName());
-        model.addAttribute("user", user);
-        return "/user";
-    }
-
 
 }

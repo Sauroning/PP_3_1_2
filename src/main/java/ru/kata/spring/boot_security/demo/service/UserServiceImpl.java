@@ -26,22 +26,27 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+    @Transactional(readOnly = true)
     public User findById(Long id) {
         return userRepository.getOne(id);
     }
 
+    @Transactional(readOnly = true)
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
+    @Transactional
     public User saveUser(User user) {
         return userRepository.save(user);
     }
 
+    @Transactional
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }

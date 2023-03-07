@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Create user</title>
 </head>
 <body>
-<form action="#" th:action="@{/user-update}" th:object="${user}" method="post">
+<form action="#" th:action="@{/user-update}" th:object="${user}" th:method="PATCH">
     <label for="id">ID</label>
     <input readonly type="text" th:field="*{id}" id="id" placeholder="ID">
     <br><br>
