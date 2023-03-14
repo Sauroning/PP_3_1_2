@@ -104,6 +104,10 @@ public class User {
         this.roles = roles;
     }
 
+    public String getRole (User user){
+        return user.getRoles().toString().replaceAll("\\pP",  "");
+    }
+
     @Override
     public String toString() {
         return "User{" +

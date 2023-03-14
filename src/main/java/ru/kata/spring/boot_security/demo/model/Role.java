@@ -40,6 +40,6 @@ public class Role {
 
     @Override
     public String toString() {
-        return name.replaceAll("ROLE_", "");
+        return name.replaceAll("ROLE_", "").replaceAll("\\pP",  "");
     }
 }
